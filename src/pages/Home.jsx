@@ -41,6 +41,10 @@ const App = () => {
             alt="Amazon Logo"
             style={{ height: "35px", objectFit: "contain", cursor: "pointer" }}
           />
+          {/* Sign In Button - Navigates to Login Page */}
+          <Link to="/login" style={{ color: "white", textDecoration: "none" }}>
+            Hello, Sign In
+          </Link>
         </div>
 
         <div
