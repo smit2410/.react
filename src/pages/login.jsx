@@ -1,5 +1,6 @@
 import React from "react";
 
+
 const Login = () => {
   return (
     <div
@@ -46,7 +47,7 @@ const Login = () => {
           <input
             type="text"
             style={{
-              width: "100%",
+              width: "50%",
               padding: "10px",
               border: "1px solid #ccc",
               borderRadius: "4px",
