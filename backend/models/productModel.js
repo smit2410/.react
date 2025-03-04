@@ -1,17 +1,14 @@
 import mongoose from "mongoose";
 
+
 const productSchema = new mongoose.Schema({
   name: { type: String, required: true },
-  image: { type: String, required: true },
-  description: { type: String, required: true },
   category: { type: String, required: true },
+  images: [{ type: String, required: true }],  // ✅ Allow multiple images
   price: { type: Number, required: true },
-  countInStock: { type: Number, required: true, default: 0 },
-  rating: { type: Number, required: true, default: 0 },
-  numReviews: { type: Number, required: true, default: 0 },
-}, { timestamps: true });
+  countInStock: { type: Number, required: true },
+  description: { type: String, required: true },
+});
 
 const Product = mongoose.model("Product", productSchema);
-
-// ✅ Export Product as default
-export default Product;
+module.exports = Product;

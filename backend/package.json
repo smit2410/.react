@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "type": "module",
   "main": "server.js",
-"scripts": {
-  "server": "nodemon server.js",
-  "start": "node server.js"
-},
+  "scripts": {
+    "server": "nodemon server.js",
+    "start": "node server.js"
+  },
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cors": "^2.8.5",

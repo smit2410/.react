@@ -1,24 +1,33 @@
 import mongoose from "mongoose";
+import Product from "./models/productModel.js";
 import dotenv from "dotenv";
-import Product from "./models/productModel.js"; // Adjust the path if needed
-import connectDB from "./config/db.js";
 
 dotenv.config();
-connectDB();
+
+mongoose
+  .connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log(err));
 
 const products = [
   {
     name: "Gaming Accessories",
     category: "Gaming",
-    image: "URL_OF_IMAGE",
+    images: [
+      "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Headset_1x._SY116_CB667159060_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Keyboard_1x._SY116_CB667159063_.jpg",
+      "https://images-na.ssl-images-amazon.com/images/G/01/AmazonExports/Fuji/2021/June/Fuji_Quad_Mouse_1x._SY116_CB667159063_.jpg"
+    ],
     price: 99.99,
     countInStock: 10,
-    description: "High-quality gaming accessories.",
+    description: "High-quality gaming accessories including controllers, headsets, and keyboards.",
   },
   {
     name: "Gaming PC",
     category: "Gaming",
-    image: "URL_OF_IMAGE",
+    images: [
+      "https://www.pcworld.com/wp-content/uploads/2024/04/pcw08_Asus-Gaming-PC.jpg"
+    ],
     price: 1200.0,
     countInStock: 5,
     description: "RGB gaming PC with high performance.",
@@ -26,63 +35,20 @@ const products = [
   {
     name: "Office Supplies",
     category: "Stationery",
-    image: "URL_OF_IMAGE",
+    images: [
+      "https://images-na.ssl-images-amazon.com/images/G/01/US-hq/2023/img/Consumer_Electronics/XCM_CUTTLE_1555947_2997386_379x304_1X_en_US._SY304_CB594429819_.jpg"
+    ],
     price: 49.99,
     countInStock: 15,
     description: "Complete office stationery set.",
-  },
-  {
-    name: "Home Storage",
-    category: "Home Essentials",
-    image: "URL_OF_IMAGE",
-    price: 30.0,
-    countInStock: 20,
-    description: "Elegant storage solutions for your home.",
-  },
-  {
-    name: "Fashion",
-    category: "Fashion",
-    image: "URL_OF_IMAGE",
-    price: 100,
-    countInStock: 10,
-    description: "High-quality clothes.",
-  },
-  {
-    name: "Kitchen Accessories",
-    category: "Kitchen",
-    image: "URL_OF_IMAGE",
-    price: 1200.0,
-    countInStock: 5,
-    description: "Standard quality kitchen products.",
-  },
-  {
-    name: "Home Arrivals",
-    category: "Home Essentials",
-    image: "URL_OF_IMAGE",
-    price: 49.99,
-    countInStock: 15,
-    description: "Complete home needs.",
-  },
-  {
-    name: "Wireless Technology",
-    category: "Wireless Tech",
-    image: "URL_OF_IMAGE",
-    price: 3000.0,
-    countInStock: 20,
-    description: "Stay ahead in the modern world.",
-  },
+  }
 ];
 
-const seedDatabase = async () => {
-  try {
-    await Product.deleteMany(); // Clears existing products
-    await Product.insertMany(products);
-    console.log("Database Seeded Successfully ✅");
-    process.exit();
-  } catch (error) {
-    console.error("Error Seeding Database:", error);
-    process.exit(1);
-  }
+const seedDB = async () => {
+  await Product.deleteMany({});
+  await Product.insertMany(products);
+  console.log("Database Seeded! 🌱");
+  mongoose.connection.close();
 };
 
-seedDatabase();
+seedDB();
